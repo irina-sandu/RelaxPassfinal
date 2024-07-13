@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/baseline_home_24"
+            android:title="Home"/>
+
+        <item
+            android:id="@+id/nav_popular"
+            android:icon="@drawable/baseline_star_outline_24"
+            android:title="Evenimente"/>
+
+        <item
+            android:id="@+id/nav_calendar"
+            android:icon="@drawable/baseline_calendar_month_24"
+            android:title="Calendar"/>
+    </group>
+
+  <item
+      android:title="">
+      <menu>
+          <item
+              android:id="@+id/nav_setting"
+              android:icon="@drawable/baseline_settings_24"
+              android:title="Setari"/>
+
+          <item
+              android:id="@+id/nav_log_out"
+              android:icon="@drawable/baseline_logout_24"
+              android:title="Logout"/>
+
+
+      </menu>
+
+  </item>
+
+
+</menu>
