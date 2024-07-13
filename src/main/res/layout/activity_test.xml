@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.admin.AdminAddTicketFragment"
+    android:background="@drawable/gradient3">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvNewTicketHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Adăugare Ticket Nou"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Selectarea datei cu stilizare îmbunătățită și imagine în loc de buton -->
+
+        <ImageView
+            android:id="@+id/idBtnPickDate"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/baseline_calendar_month_mov"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/idTVSelectedDate"
+            app:layout_constraintRight_toLeftOf="@id/idTVSelectedDate"
+            app:layout_constraintTop_toBottomOf="@id/tvNewTicketHeader" />
+
+        <TextView
+            android:id="@+id/idTVSelectedDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="80dp"
+            android:gravity="center_vertical"
+            android:text="Selecteaza Data"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toRightOf="@+id/idBtnPickDate"
+            app:layout_constraintTop_toBottomOf="@id/tvNewTicketHeader" />
+
+        <ImageView
+            android:id="@+id/idBtnPickTime"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/baseline_watch_later_24"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/idBtnPickDate" />
+
+        <TextView
+            android:id="@+id/idTVSelectedTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            android:text="Selecteaza Ora"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toRightOf="@+id/idBtnPickTime"
+            app:layout_constraintTop_toBottomOf="@id/idTVSelectedDate" />
+
+
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutTitle"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/idTVSelectedTime">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Titlu"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutCategory"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutTitle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Categorie"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutCity"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutCategory">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Oras"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutLocation"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutCity">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Locatie"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutDetails"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutLocation">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Detalii"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutNumberTicket"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutDetails">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtNumberTicket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Numar bilete"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutPriceCategoryOne"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutNumberTicket">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtCategoryOne"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pret categorie 1"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutPriceCategoryTwo"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutPriceCategoryOne">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtPriceCategoryTwo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pret categorie 2"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutPriceCategoryThree"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutPriceCategoryTwo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtPriceCategoryThree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pret categorie 3"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutPricePriceCategoryVIP"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutPriceCategoryThree">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtPriceCategoryVIP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pret categorie VIP"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutImageUrl"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutPricePriceCategoryVIP">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtImageUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Url Imagine"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/idBtnEditTicket"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginVertical="20dp"
+            android:text="Adaugă Ticket"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:background="@drawable/rounded_button"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutImageUrl" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
