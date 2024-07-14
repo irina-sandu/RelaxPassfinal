@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.myapplication.classes.Ticket
 import com.example.myapplication.classes.User
 import com.example.myapplication.databinding.FragmentRegisterBinding
 import com.google.firebase.Firebase
@@ -36,6 +37,7 @@ class RegisterFragment : Fragment() {
             val confirmPass = binding.confirmPassEt.text.toString().trim()
             val firstname = binding.firstnameEt.text.toString().trim()
             val lastname = binding.lastnameEt.text.toString().trim()
+            val tickets = ArrayList<Ticket>()
 
             if (email.isNotEmpty() && pass.isNotEmpty() && confirmPass.isNotEmpty()
                 && firstname.isNotEmpty() && lastname.isNotEmpty()
@@ -49,7 +51,7 @@ class RegisterFragment : Fragment() {
 
                             //user.preferences=preferencesUserListOfPreferences()
                             user =
-                                User(firstname, lastname, email, preferencesUserListOfPreferences())
+                                User(firstname, lastname, email, preferencesUserListOfPreferences(),tickets)
                             saveUserInFirestore(user)
 
                             //Toast.makeText(context, "User registered successfully!", Toast.LENGTH_SHORT).show()

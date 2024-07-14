@@ -42,6 +42,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private lateinit var database: FirebaseFirestore
     private lateinit var navigationView: NavigationView
     private var userList: ArrayList<User>? = ArrayList()
+    private var usersIdList:ArrayList<UsersId>?= ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -79,6 +80,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private fun getUserFirebase() {
         database = FirebaseFirestore.getInstance()
         database.collection("user").addSnapshotListener(object : EventListener<QuerySnapshot> {
+        var posUsers=0
 
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                 if (error != null) {
@@ -88,6 +90,12 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         userList?.add(dc.document.toObject(User::class.java))
+                        usersIdList?.add(UsersId(dc.document.id,posUsers))
+                        posUsers+=1
+
+                        Log.d("123123", userList.toString())
+                        Log.d("1231234", usersIdList.toString())
+
                     }
                     Log.d("Firestore error", userList?.size.toString())
                 }
@@ -109,10 +117,27 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         // Setează textul pentru TextView-urile de email și nume
         emailTextView.setText(sharedPreferences.getString("email_user_key", "valoare_default"))
 
+        setIdUserInSharePreference(sharedPreferences.getString("email_user_key", "valoare_default"))
+
         for (user in userList!!) {
             if (user.email == emailTextView.text) {
                 nameTextView.text = "${user.firstname} ${user.lastname}"
             }
+        }
+    }
+
+    private fun setIdUserInSharePreference(email:String?) {
+        val sharedPreferences = getSharedPreferences("save_id_user", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        val posUser=userList?.indexOfFirst { it.email==email }
+
+        if(posUser!=null){
+            editor.putString("idValueUser", usersIdList?.get(posUser)?.userId)
+            editor.putInt("idValueUserPos", posUser)
+            editor.apply()
+
+            Log.d("asdqwe",usersIdList?.get(posUser)?.userId.toString())
         }
     }
 
@@ -137,3 +162,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         return true
     }
 }
+
+data class UsersId(
+    var userId:String="",
+    var posUser: Int=0,
+)

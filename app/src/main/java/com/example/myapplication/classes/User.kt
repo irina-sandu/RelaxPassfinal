@@ -5,4 +5,5 @@ data class User(
     var lastname: String = "",
     var email: String = "",
     var preferences: ArrayList<String>? = ArrayList(),
+    var tickets: ArrayList<Ticket>? = ArrayList()
 )

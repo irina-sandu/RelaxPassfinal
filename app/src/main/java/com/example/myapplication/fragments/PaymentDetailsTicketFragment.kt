@@ -1,6 +1,7 @@
 package com.example.myapplication.fragments
 
 import android.app.AlertDialog
+import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
@@ -13,8 +14,11 @@ import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
 import android.graphics.Color
+import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.R
+import com.example.myapplication.Utils
 import com.example.myapplication.classes.Ticket
+import com.example.myapplication.classes.User
 import com.example.myapplication.databinding.FragmentPaymentDetailsTicketBinding
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.EventListener
@@ -31,12 +35,18 @@ private lateinit var binding: FragmentPaymentDetailsTicketBinding
     private lateinit var database: FirebaseFirestore
     private lateinit var ticketItem: Ticket
     private lateinit var alertDialog: AlertDialog
+
+    private lateinit var db: FirebaseFirestore
+    private lateinit var idUser: String
+    private  var userList:ArrayList<User>? = ArrayList()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding=FragmentPaymentDetailsTicketBinding.inflate(inflater, container,false)
         alertDialog = AlertDialog.Builder(requireContext()).create()
+        db = FirebaseFirestore.getInstance()
         return binding.root
     }
 
@@ -57,6 +67,60 @@ private lateinit var binding: FragmentPaymentDetailsTicketBinding
     private fun onClickButton() {
         binding.buttonBuyTicket.setOnClickListener {
             if(priceCheck()) {
+                //salvam aici biletul in ticketele userului
+                val sharedPreferences = requireContext().getSharedPreferences(Utils.NAME_FOLDER_PREFERENCES, Context.MODE_PRIVATE)
+                val emailUser: String? = sharedPreferences.getString(Utils.EMAIL_KEY, null)
+
+                Log.d("asdasd", emailUser.toString())
+                //preluare idUser (id-ul din firebase)
+                val sharedPreferences2 = requireContext().getSharedPreferences("save_id_user", AppCompatActivity.MODE_PRIVATE)
+                val idUser:String?=sharedPreferences2.getString("idValueUser",null)
+                val posIdUser:Int?=sharedPreferences2.getInt("idValueUserPos",-1)
+                //getUserList()
+
+                var userTicketBuy: ArrayList<Ticket> = arrayListOf()
+
+                if (posIdUser != null) {
+                    val user = userList?.get(posIdUser)
+                    if (user != null) {
+                        val tickets = user.tickets
+                        userTicketBuy = tickets ?: arrayListOf()
+                        if (tickets == null) {
+                            Log.d("asdasd", "Acțiuni alternative dacă `tickets` este null")
+                        }
+                    } else {
+                        Log.d("asdasd", "Acțiuni alternative dacă `user` este null")
+                    }
+                } else {
+                    Log.d("asdasd", "Acțiuni alternative dacă `posIdUser` este null")
+                }
+
+                userTicketBuy.add(ticketItem)
+                val user = posIdUser?.let { it1 -> userList?.get(it1) }
+
+                //salvare ticket
+
+                val updateUserTickets= mapOf(
+                    "email" to user?.email,
+                   "firstname" to user?.firstname,
+                   "lastname" to user?.lastname,
+                  "preferences" to user?.preferences,
+                   "tickets" to userTicketBuy
+                )
+                Log.d("asdqwer",updateUserTickets.toString())
+
+                if (idUser != null) {
+                    db.collection("user").document(idUser).update(updateUserTickets)
+                        .addOnSuccessListener {
+                            Log.d("UpdateUser", "User successfully updated")
+                        }
+                        .addOnFailureListener {
+                            Log.w("UpdateUser", "Error updating", it)
+                        }
+                }
+
+
+                //aici trimitem userul spre urmatorul ecran
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container_main_drawer2, SuccessPaymentFragment())
                     .commit()
@@ -64,6 +128,28 @@ private lateinit var binding: FragmentPaymentDetailsTicketBinding
                 Toast.makeText(context, "Trebuie sa selectati o categorie de pret", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun getUserList() {
+        db.collection("user")
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                    if (error != null) {
+                        Log.e("Firestore error", error.message.toString())
+                        return
+                    }
+                    for (dc: DocumentChange in value?.documentChanges!!) {
+                        if (dc.type == DocumentChange.Type.ADDED) {
+                            userList?.add(dc.document.toObject(User::class.java))
+                        }
+                        Log.d("Firestore error", ticketList?.size.toString())
+                    }
+                    //se seteaza datele pentru view aici ca sa apara ce e in tickete ()
+                }
+            }
+            )
+        Log.d("userlist",userList.toString())
     }
 
     private fun priceCheck(): Boolean {
@@ -142,7 +228,8 @@ private lateinit var binding: FragmentPaymentDetailsTicketBinding
     }
     private fun getDataFirebase() {
         database = FirebaseFirestore.getInstance()
-        database.collection("tickets").addSnapshotListener(object : EventListener<QuerySnapshot> {
+        database.collection("tickets")
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
 
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                 if (error != null) {
@@ -160,6 +247,11 @@ private lateinit var binding: FragmentPaymentDetailsTicketBinding
             }
         }
         )
+
+        getUserList()
+
+
+
     }
 
     private fun setDetailsTicket() {

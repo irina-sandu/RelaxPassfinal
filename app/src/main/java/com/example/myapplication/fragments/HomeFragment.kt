@@ -121,7 +121,7 @@ class HomeFragment : Fragment(), OnClickListener {
         //aici e body-ul notificarii
         val bigTextStyle = NotificationCompat.BigTextStyle()
             .bigText(
-                "Evenomentul are loc in " + ticket.location + " cu categoria " + ticket.category +
+                "Evenimentul are loc in " + ticket.location + " cu categoria " + ticket.category +
                         "\nVa asteptam cu drag! "
             )
 
