@@ -20,6 +20,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.myapplication.R
+import com.example.myapplication.classes.Event
+import com.example.myapplication.classes.Location
 import com.example.myapplication.classes.Ticket
 import com.example.myapplication.databinding.FragmentAdminAddTicketBinding
 import com.google.firebase.firestore.FirebaseFirestore
@@ -39,6 +41,8 @@ class AdminAddTicketFragment : Fragment() {
     private lateinit var addTicket: Button
     private lateinit var db: FirebaseFirestore
     private lateinit var binding: FragmentAdminAddTicketBinding
+    private lateinit var location: Location
+    private lateinit var event: Event
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -124,7 +124,8 @@ class FavoriteTicketsFragment : Fragment(), OnClickListener {
     override fun onClickListenerDetails(ticketPos: Int) {
         val detailsFragment = DetailsTicketFragment()
         val bundle = Bundle()
-        Log.d("ticketmeu", ticketList[ticketPos].toString())
+        Log.d("ticketmeu", userFavoriteTicketList[ticketPos].toString())
+        Log.d("ticketmeu", userFavoriteTicketList?.get(ticketPos).toString())
         bundle.putInt("ticketItem", ticketPos)
         detailsFragment.arguments = bundle
 
