@@ -22,6 +22,7 @@ import com.example.myapplication.classes.Ticket
 import com.example.myapplication.classes.User
 import com.example.myapplication.fragments.CalendarFragment
 import com.example.myapplication.fragments.FavoriteTicketsFragment
+import com.example.myapplication.fragments.HistoryFragment
 import com.example.myapplication.fragments.HomeFragment
 import com.example.myapplication.fragments.SettingFragment
 import com.google.android.material.navigation.NavigationView
@@ -42,7 +43,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private lateinit var database: FirebaseFirestore
     private lateinit var navigationView: NavigationView
     private var userList: ArrayList<User>? = ArrayList()
-    private var usersIdList:ArrayList<UsersId>?= ArrayList()
+    private var usersIdList: ArrayList<UsersId>? = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -80,7 +81,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private fun getUserFirebase() {
         database = FirebaseFirestore.getInstance()
         database.collection("user").addSnapshotListener(object : EventListener<QuerySnapshot> {
-        var posUsers=0
+            var posUsers = 0
 
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                 if (error != null) {
@@ -90,8 +91,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         userList?.add(dc.document.toObject(User::class.java))
-                        usersIdList?.add(UsersId(dc.document.id,posUsers))
-                        posUsers+=1
+                        usersIdList?.add(UsersId(dc.document.id, posUsers))
+                        posUsers += 1
 
                         Log.d("123123", userList.toString())
                         Log.d("1231234", usersIdList.toString())
@@ -126,18 +127,18 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }
     }
 
-    private fun setIdUserInSharePreference(email:String?) {
+    private fun setIdUserInSharePreference(email: String?) {
         val sharedPreferences = getSharedPreferences("save_id_user", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
 
-        val posUser=userList?.indexOfFirst { it.email==email }
+        val posUser = userList?.indexOfFirst { it.email == email }
 
-        if(posUser!=null){
+        if (posUser != null) {
             editor.putString("idValueUser", usersIdList?.get(posUser)?.userId)
             editor.putInt("idValueUserPos", posUser)
             editor.apply()
 
-            Log.d("asdqwe",usersIdList?.get(posUser)?.userId.toString())
+            Log.d("asdqwe", usersIdList?.get(posUser)?.userId.toString())
         }
     }
 
@@ -153,6 +154,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.nav_setting -> replaceFragment(SettingFragment())
             R.id.nav_popular -> replaceFragment(FavoriteTicketsFragment())
             R.id.nav_calendar -> replaceFragment(CalendarFragment())
+            R.id.nav_history -> replaceFragment(HistoryFragment())
             R.id.nav_log_out -> {
                 auth.signOut()
                 startActivity(Intent(this, LoginActivity::class.java))
@@ -164,6 +166,6 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 }
 
 data class UsersId(
-    var userId:String="",
-    var posUser: Int=0,
+    var userId: String = "",
+    var posUser: Int = 0,
 )

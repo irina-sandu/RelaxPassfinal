@@ -21,7 +21,7 @@
         <item
             android:id="@+id/nav_report_admin"
             android:icon="@drawable/baseline_circle_24"
-            android:title="Calendar"/>
+            android:title="Rapoarte"/>
     </group>
 
     <item

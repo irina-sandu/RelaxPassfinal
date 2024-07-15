@@ -18,7 +18,7 @@ import com.example.myapplication.classes.User
 import com.example.myapplication.fragments.admin.AdminAddTicketFragment
 import com.example.myapplication.fragments.admin.AdminCalendarFragment
 import com.example.myapplication.fragments.admin.AdminHomeFragment
-import com.example.myapplication.fragments.AdminReportFragment
+import com.example.myapplication.fragments.admin.AdminReport2Fragment
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -107,7 +107,7 @@ class AdminDashboardActivity : AppCompatActivity(),NavigationView.OnNavigationIt
         when(item.itemId){
             R.id.nav_home_admin-> replaceFragment(AdminHomeFragment())
             R.id.nav_calendar_admin-> replaceFragment(AdminCalendarFragment())
-            R.id.nav_report_admin-> replaceFragment(AdminReportFragment())
+            R.id.nav_report_admin-> replaceFragment(AdminReport2Fragment())
             R.id.nav_add_ticket->replaceFragment(AdminAddTicketFragment())
             R.id.nav_log_out_admin->{
                 auth.signOut()
